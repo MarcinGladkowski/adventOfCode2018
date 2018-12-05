@@ -18,7 +18,7 @@ class CounterCalc {
 
         let isRepeat = true;
 
-        for (var value of this.input) {
+        for (let value of this.input) {
             const number = parseInt(value[1]);
             switch(value[0]) {
                 case '+':
