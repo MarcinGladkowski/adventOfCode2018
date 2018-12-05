@@ -53,9 +53,35 @@ for(let word of input) {
         threeCounter++;
     }
 }   
-// result
+// Part I
 console.log(twoCounter * threeCounter);
 
 
+// Part II
+let comparasionWordIndex = 0;
+for(let i = 0; i < input.length; i++) {
+    for(let k = 0; k < input.length; k++) {
+        
+        if (comparasionWordIndex != k) {
 
+            let differenceCounter = 0;
+            let differenceIndex = 0;
 
+            for(let j = 0; j < input[k].length; j++) {
+               
+               if (input[k][j] !== input[comparasionWordIndex][j]) {
+                  differenceCounter++;
+                  differenceIndex = j;
+               }
+
+            }
+
+            if (differenceCounter === 1) {
+                let result = input[k].substring(0, differenceIndex - 1) + input[k].substring(differenceIndex, input[k].length);
+                console.log(result);
+                return true;
+            }
+        }
+    }
+    comparasionWordIndex++;
+}
