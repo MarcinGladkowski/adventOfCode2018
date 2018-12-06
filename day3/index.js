@@ -1,32 +1,38 @@
-var fs = require('fs');
+const SandboxCreator = require('./sandboxCreator.js');
+const fs = require('fs');
 // https://adventofcode.com/2018/day/3/input
 let input = fs.readFileSync('input.txt', 'utf8').split("\n");
 
+// const newArea = new SandboxCreator(input).makeArea();
+// fs.writeFile("sandbox.txt", newArea); 
 
-let maxX = 0;
-let maxY = 0;
+const example = '#123 @ 3,2: 5x4';
 
-for(let area of input) {
-    let areaArr = area.split(" ");
-    let vector = areaArr[2].split(",");
-    let x = parseInt(vector[0]);
-    let y = parseInt(vector[1]);
+let parsedData = example.split(" ");
 
-    if(x > maxX) { maxX = x }; 
-    if(y > maxY) { maxY = y }; 
+let id = parsedData[0];
+let vector = parsedData[2].split(",");
+// x to wiersz
+let x = vector[0];
+// y to index w wierszu
+let y = vector[1];
+
+let area = fs.readFileSync('sandbox2.txt', 'utf8').split("\n");
+
+for(let i = 0; i < area.length; i++) {
+
+    if(i === 2) {
+         let newRow = '';
+         for(let j = 0; j < area[i].length; j++) {
+            if(j in [3, 4, 5, 6]) {
+                newRow+='x';
+            } else {
+                newRow+='.';
+            }
+         }
+         area[i] = newRow;
+    }
 }
 
-maxX += 50;
-maxY += 50;
-let line = '';
-for(let i = 0; i < maxX; i++) {
-  line+='.';
-}
-
-let sandboxToWrite = '';
-for(let j = 0; j < maxY; j++) {
-    sandboxToWrite += line + '\n';
-}
-
-fs.writeFile("sandbox.txt", sandboxToWrite); 
+console.log(area);
 
